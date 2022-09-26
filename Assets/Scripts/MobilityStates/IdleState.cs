@@ -13,13 +13,8 @@ public class IdleState : IState
 
 	public void StateEnter()
 	{
-		characterAnimator.SetTrigger("TransitionToAttackIdle");
 		Debug.Log("IdleStarted");
-	}
-
-	public void StateExit()
-	{
-		throw new System.NotImplementedException();
+		characterAnimator.SetTrigger("TransitionToAttackIdle");
 	}
 
 	public void StateFixedTick()
@@ -32,15 +27,8 @@ public class IdleState : IState
 		//throw new System.NotImplementedException();
 	}
 
-	// Start is called before the first frame update
-	void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void StateExit()
+	{
+		Debug.Log("IdleExit");
+	}
 }

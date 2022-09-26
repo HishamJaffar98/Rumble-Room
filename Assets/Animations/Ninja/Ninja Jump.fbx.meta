@@ -1,32 +1,12 @@
 fileFormatVersion: 2
-guid: 505285b7f75f8484181b9b70d5cb6067
+guid: 0c3a4ebb6b6af304c971d273e0a2924d
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
-      74: -203655887218126122
-    second: mixamo.com
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch24_1001_Diffuse
-    second: {fileID: 2800000, guid: a62b4c4147af2da428acaaf16ce8d87a, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch24_1001_Glossiness
-    second: {fileID: 2800000, guid: 8ad08c9f13f37324997e0200cd63e2b2, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch24_1001_Normal
-    second: {fileID: 2800000, guid: 18784032376fb6f4bb23baee851762bd, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch24_1001_Specular
-    second: {fileID: 2800000, guid: 5ec543584778b2c4b843e269b13e2ed1, type: 3}
+      74: -654009120317153520
+    second: Ninja  Jump
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -56,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: Ninja  Jump
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 113
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -73,9 +53,9 @@ ModelImporter:
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -898,11 +878,12 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 505285b7f75f8484181b9b70d5cb6067,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0

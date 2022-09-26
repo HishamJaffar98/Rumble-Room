@@ -1455,7 +1455,7 @@ Transform:
   m_GameObject: {fileID: 1066142207}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -13, y: 5, z: 0}
-  m_LocalScale: {x: 3.0000012, y: 3, z: 3.0000012}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 543450652098643793}
@@ -1474,7 +1474,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e51d6b76da037d41a4c1eb455a8b3c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterRigidBody: {fileID: 1066142212}
+  characterTransform: {fileID: 1066142208}
   characterAnimator: {fileID: 919132147577200108}
+  runSpeed: 25
+  smoothFactor: 20
+  stopFactor: 500
+  jumpPower: 100
 --- !u!114 &1066142210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1557,6 +1563,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8f67fb6f-c339-46ec-8759-6720375a0e88
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1066142211}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dd9cbbaa-f25c-4777-bb62-2b58b8e80e54
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -1585,12 +1607,12 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 8
-  m_CollisionDetection: 0
+  m_Constraints: 120
+  m_CollisionDetection: 1
 --- !u!65 &1066142213
 BoxCollider:
   m_ObjectHideFlags: 0

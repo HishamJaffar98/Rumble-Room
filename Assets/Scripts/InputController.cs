@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class InputController : MonoBehaviour
 {
     [Header("State Machines")]
     [SerializeField] MobilityStateMachine characterMobilitySM;
+
     void Start()
     {
         
@@ -20,10 +22,19 @@ public class InputController : MonoBehaviour
 
 	public void OnMovement(InputAction.CallbackContext value)
 	{
-        if (value.phase==InputActionPhase.Canceled)
+        Vector2 rawInput = value.ReadValue<Vector2>();
+        characterMobilitySM.RawMovementInput = rawInput;
+        if (value.phase == InputActionPhase.Performed)
 		{
-            characterMobilitySM.ChangeState(characterMobilitySM.characterIdleState);
-            Debug.Log("Stopped providing WASD input");
+            characterMobilitySM.ChangeState(characterMobilitySM.characterRunState);
+        }
+    }
+
+    public void OnJump(InputAction.CallbackContext value)
+	{
+        if(value.phase == InputActionPhase.Performed)
+	    {
+           characterMobilitySM.ChangeState(characterMobilitySM.characterJumpState);
         }
 	}
 }
