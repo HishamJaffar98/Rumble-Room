@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class StateMachine : MonoBehaviour
 {
 	public IState currentState;
 	public IState previousState;
 	private bool isTransitioning;
+
+	public static event Action<IState,IState> OnStateChange;
 
 	private void ChangeStateRoutine(IState newState)
 	{
@@ -18,6 +21,7 @@ public class StateMachine : MonoBehaviour
 		previousState = currentState;
 		currentState = newState;
 
+		OnStateChange?.Invoke(previousState, currentState);
 		if (currentState != null)
 			currentState.StateEnter();
 
