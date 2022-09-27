@@ -26,7 +26,8 @@ public class InputController : MonoBehaviour
         characterMobilitySM.RawMovementInput = rawInput;
         if (value.phase == InputActionPhase.Performed)
 		{
-            characterMobilitySM.ChangeState(characterMobilitySM.characterRunState);
+            if(characterMobilitySM.currentState!= characterMobilitySM.characterJumpState)
+                characterMobilitySM.ChangeState(characterMobilitySM.characterRunState);
         }
     }
 

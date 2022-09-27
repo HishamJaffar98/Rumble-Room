@@ -12,7 +12,7 @@ public class MobilityStateMachine : StateMachine
 	#endregion
 
 	#region Components
-	[Header("Required Components")]
+	[Header("Shared State Components")]
 	[SerializeField] Rigidbody characterRigidBody;
 	[SerializeField] Transform characterTransform;
 	[SerializeField] Animator characterAnimator;
@@ -28,6 +28,7 @@ public class MobilityStateMachine : StateMachine
 
 	[Header("Jump State Variables")]
 	[SerializeField] float jumpPower;
+	[SerializeField] float gravityScaleModifier;
 	#endregion
 
 	public Vector2 RawMovementInput
@@ -54,7 +55,7 @@ public class MobilityStateMachine : StateMachine
 	{
 		characterIdleState = new IdleState(characterAnimator);
 		characterRunState = new RunState(this, characterRigidBody, characterTransform, characterAnimator, runSpeed, smoothFactor);
-		characterJumpState = new JumpState(this, characterRigidBody, characterAnimator, jumpPower);
+		characterJumpState = new JumpState(this, characterRigidBody, characterTransform, characterAnimator, runSpeed, smoothFactor, jumpPower, gravityScaleModifier);
 	}
 
 	private void Start()
@@ -65,7 +66,7 @@ public class MobilityStateMachine : StateMachine
 	protected override void Update()
     {
         base.Update();
-    }
+	}
 
 	protected override void FixedUpdate()
 	{

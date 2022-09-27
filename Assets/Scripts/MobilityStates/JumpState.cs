@@ -2,39 +2,75 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpState : IState
+public class JumpState : RunState
 {
-	MobilityStateMachine characterMobilitySM;
-	Rigidbody characterRigidbody;
-	Animator characterAnimator;
 	float characterJumpPower;
-	public JumpState(MobilityStateMachine i_MobilitySM, Rigidbody i_rigidbody, Animator i_animator, float i_jumpPower)
+	float startingYPos;
+	bool isJumping = false;
+	float gravityScaleModifier;
+	Vector3 originalGravity;
+
+	public JumpState(MobilityStateMachine i_MobilitySM, Rigidbody i_rigidbody, Transform i_transform,
+					Animator i_animator, float i_runSpeed, float i_smoothFactor, float i_jumpPower, float i_gravityScaleModifier):base(i_MobilitySM, i_rigidbody, i_transform, i_animator, i_runSpeed, i_smoothFactor)
 	{
-		characterMobilitySM = i_MobilitySM;
-		characterRigidbody = i_rigidbody;
-		characterAnimator = i_animator;
 		characterJumpPower = i_jumpPower;
+		gravityScaleModifier = i_gravityScaleModifier;
 	}
 
-	public void StateEnter()
+	public override void StateEnter()
 	{
-		//characterAnimator.SetTrigger("TransitionToJump");
+		originalGravity = Physics.gravity;
+		startingYPos = characterTransform.position.y;
 		characterRigidbody.AddForce(Vector2.up * characterJumpPower, ForceMode.Impulse);
+		characterAnimator.SetTrigger("TransitionToJump");
 	}
 
-	public void StateExit()
+	public override void StateExit()
 	{
-		//throw new System.NotImplementedException();
+		isJumping = false;
+		Physics.gravity = originalGravity;
+		Debug.Log("JumpStateExited");
 	}
 
-	public void StateFixedTick()
+	public override void StateFixedTick()
 	{
-		//throw new System.NotImplementedException();
+		if (characterTransform.position.y != startingYPos)
+		{
+			isJumping = true;
+			AlterGravity();
+			base.StateFixedTick();
+		}
+
+		if (characterTransform.position.y <= startingYPos && isJumping)
+		{
+			if(characterRigidbody.velocity.x==0)
+			{
+				Debug.Log(characterRigidbody.velocity.x);
+				characterMobilitySM.ChangeState(characterMobilitySM.characterIdleState);
+			}
+			else
+			{
+				Debug.Log(characterRigidbody.velocity.x);
+				characterMobilitySM.ChangeState(characterMobilitySM.characterRunState);
+			}
+		}
 	}
 
-	public void StateTick()
+	private void AlterGravity()
 	{
-		//throw new System.NotImplementedException();
+		if (characterRigidbody.velocity.y <= 1)
+		{
+			if (Physics.gravity.magnitude > originalGravity.magnitude)
+			{
+				return;
+			}
+			Physics.gravity = originalGravity * gravityScaleModifier;
+		}
+	}
+
+	public override void StateTick()
+	{
+		
 	}
 
 }

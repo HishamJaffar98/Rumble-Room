@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-	private IState currentState;
-	private IState previousState;
+	public IState currentState;
+	public IState previousState;
 	private bool isTransitioning;
 
 	private void ChangeStateRoutine(IState newState)
@@ -15,9 +15,7 @@ public class StateMachine : MonoBehaviour
 		if (currentState != null)
 			currentState.StateExit();
 
-		if (previousState != null)
-			previousState = currentState;
-
+		previousState = currentState;
 		currentState = newState;
 
 		if (currentState != null)

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class RunState : IState
 {
-	Rigidbody characterRigidbody;
-	MobilityStateMachine characterMobilitySM;
-	Animator characterAnimator;
-	Transform characterTransform;
+	protected Rigidbody characterRigidbody;
+	protected MobilityStateMachine characterMobilitySM;
+	protected Animator characterAnimator;
+	protected Transform characterTransform;
 	float characterRunSpeed;
 	float characterSmoothFactor;
 
-	Vector2 direction;
-	Vector2 smoothedOutDirection;
+	protected Vector2 direction;
+	protected Vector2 smoothedOutDirection;
 	public RunState(MobilityStateMachine i_MobilitySM, Rigidbody i_rigidbody, Transform i_transform, Animator i_animator, float i_runSpeed, float i_smoothFactor)
 	{
 		characterMobilitySM = i_MobilitySM;
@@ -23,19 +23,20 @@ public class RunState : IState
 		characterSmoothFactor = i_smoothFactor;
 	}
 
-	public void StateEnter()
+	public virtual void StateEnter()
 	{
 		Debug.Log("Run state entered");
 		characterAnimator.SetTrigger("TransitionToRun");
 		direction = characterMobilitySM.RawMovementInput;
+
 	}
 
-	public void StateTick()
+	public virtual void StateTick()
 	{
 
 	}
 
-	public void StateFixedTick()
+	public virtual void StateFixedTick()
 	{
 		SmoothDirectionValue();
 		UpdateMovement();
@@ -49,17 +50,25 @@ public class RunState : IState
 
 	private void UpdateMovement()
 	{
-		Vector3 newPosition = new Vector3(characterTransform.position.x  + (smoothedOutDirection.x *characterRunSpeed * Time.deltaTime), characterTransform.position.y, 0f);
+		Vector3 newPosition = new Vector3(characterTransform.position.x + (smoothedOutDirection.x * characterRunSpeed * Time.deltaTime), characterTransform.position.y, 0f);
 		characterTransform.position = newPosition;
-		Debug.Log(smoothedOutDirection.x);
-		if(Mathf.Abs(smoothedOutDirection.x) <0.02f)
+		RotateCharacter();
+		if (Mathf.Abs(smoothedOutDirection.x) < 0.02f && characterMobilitySM.currentState == characterMobilitySM.characterRunState)
 		{
 			characterMobilitySM.ChangeState(characterMobilitySM.characterIdleState);
 		}
 	}
-	
-	public void StateExit()
+
+	private void RotateCharacter()
 	{
-		Debug.Log("Run state exited");
+		if ((Vector2)characterTransform.transform.forward != direction.normalized && direction.normalized != Vector2.zero)
+		{
+			characterTransform.transform.forward = direction.normalized;
+		}
+	}
+
+	public virtual void StateExit()
+	{
+		characterAnimator.ResetTrigger("TransitionToRun");
 	}
 }
