@@ -29,7 +29,7 @@ public class JumpState : RunState
 	{
 		isJumping = false;
 		Physics.gravity = originalGravity;
-		Debug.Log("JumpStateExited");
+		characterAnimator.ResetTrigger("TransitionToJump");
 	}
 
 	public override void StateFixedTick()
@@ -45,12 +45,10 @@ public class JumpState : RunState
 		{
 			if(characterRigidbody.velocity.x==0)
 			{
-				Debug.Log(characterRigidbody.velocity.x);
 				characterMobilitySM.ChangeState(characterMobilitySM.characterIdleState);
 			}
 			else
 			{
-				Debug.Log(characterRigidbody.velocity.x);
 				characterMobilitySM.ChangeState(characterMobilitySM.characterRunState);
 			}
 		}

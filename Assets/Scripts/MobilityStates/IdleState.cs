@@ -29,6 +29,7 @@ public class IdleState : IState
 
 	public void StateExit()
 	{
+		characterAnimator.ResetTrigger("TransitionToAttackIdle");
 		Debug.Log("IdleExit");
 	}
 }

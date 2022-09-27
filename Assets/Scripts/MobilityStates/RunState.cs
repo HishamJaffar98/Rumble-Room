@@ -70,5 +70,6 @@ public class RunState : IState
 	public virtual void StateExit()
 	{
 		characterAnimator.ResetTrigger("TransitionToRun");
+		Debug.Log("Run state Exited");
 	}
 }

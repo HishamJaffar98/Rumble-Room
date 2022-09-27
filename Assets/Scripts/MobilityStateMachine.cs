@@ -9,6 +9,7 @@ public class MobilityStateMachine : StateMachine
 	public IdleState characterIdleState;
 	public RunState characterRunState;
 	public JumpState characterJumpState;
+	public DodgeState characterdodgeState;
 	#endregion
 
 	#region Components
@@ -29,6 +30,11 @@ public class MobilityStateMachine : StateMachine
 	[Header("Jump State Variables")]
 	[SerializeField] float jumpPower;
 	[SerializeField] float gravityScaleModifier;
+
+	[Header("Dodge State Variables")]
+	[SerializeField] LayerMask dodgeLayer;
+	[SerializeField] float dodgeForce;
+
 	#endregion
 
 	public Vector2 RawMovementInput
@@ -56,6 +62,7 @@ public class MobilityStateMachine : StateMachine
 		characterIdleState = new IdleState(characterAnimator);
 		characterRunState = new RunState(this, characterRigidBody, characterTransform, characterAnimator, runSpeed, smoothFactor);
 		characterJumpState = new JumpState(this, characterRigidBody, characterTransform, characterAnimator, runSpeed, smoothFactor, jumpPower, gravityScaleModifier);
+		characterdodgeState = new DodgeState(this, characterRigidBody, characterTransform, characterAnimator, runSpeed, smoothFactor, dodgeLayer, gravityScaleModifier, dodgeForce);
 	}
 
 	private void Start()
@@ -71,5 +78,15 @@ public class MobilityStateMachine : StateMachine
 	protected override void FixedUpdate()
 	{
 		base.FixedUpdate();
+	}
+
+	public void SetLayer(LayerMask newLayer)
+	{
+		//gameObject.layer = newLayer;
+	}
+
+	public LayerMask GetLayer( )
+	{
+		return gameObject.layer;
 	}
 }

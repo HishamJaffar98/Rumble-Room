@@ -38,4 +38,13 @@ public class InputController : MonoBehaviour
            characterMobilitySM.ChangeState(characterMobilitySM.characterJumpState);
         }
 	}
+
+    public void OnDodge(InputAction.CallbackContext value)
+	{
+        if (value.phase == InputActionPhase.Performed)
+        {
+            if (characterMobilitySM.currentState != characterMobilitySM.characterJumpState)
+                characterMobilitySM.ChangeState(characterMobilitySM.characterdodgeState);
+        }
+    }        
 }
